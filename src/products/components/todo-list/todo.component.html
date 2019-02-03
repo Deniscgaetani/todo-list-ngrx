@@ -1,0 +1,21 @@
+<mat-toolbar color="warn"
+  >Todo List <span class="example-spacer"></span>
+  <input type="text" matInput placeholder="Crie aqui" #name />
+  <button mat-icon-button>
+    <mat-icon class="example-icon" (click)="add(name.value); name.value = ''"
+      >add_circle</mat-icon
+    >
+  </button>
+</mat-toolbar>
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let todo of (todos$ | async)"
+    >{{ todo.id }}-----{{ todo.name }} <span class="example-spacer"></span>
+    <input type="text" matInput placeholder="Edite aqui" #editName />
+    <button mat-icon-button>
+      <mat-icon class="example-icon" (click)="edit(todo,editName.value); editName.value = ''">edit</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon class="example-icon" (click)="delete(todo)">delete</mat-icon>
+    </button></mat-list-item
+  >
+</mat-list>
