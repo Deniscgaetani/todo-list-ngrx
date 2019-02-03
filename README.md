@@ -12,7 +12,7 @@ I started doing this Front-end service for the purpose of training.
 
 ## Install
 
-`git clone https://github.com/Deniscgaetani/BackendTodo.git`
+`git clone https://github.com/Deniscgaetani/todo-list-ngrx.git`
 
 `npm install`
 
