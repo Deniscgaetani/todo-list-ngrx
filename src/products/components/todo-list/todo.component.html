@@ -1,18 +1,47 @@
 <mat-toolbar color="warn"
   >Todo List <span class="example-spacer"></span>
-  <input type="text" matInput placeholder="Crie aqui" #name />
-  <button mat-icon-button>
+  <!-- <input type="text" matInput placeholder="Crie aqui" #name /> -->
+  <!-- <button mat-icon-button>
     <mat-icon class="example-icon" (click)="add(name.value); name.value = ''"
       >add_circle</mat-icon
     >
+  </button> -->
+  <button mat-icon-button>
+    <mat-icon class="example-icon" (click)="openDialog()">add_circle</mat-icon>
   </button>
 </mat-toolbar>
 <mat-list role="list">
   <mat-list-item role="listitem" *ngFor="let todo of (todos$ | async)"
-    >{{ todo.id }}-----{{ todo.name }} <span class="example-spacer"></span>
-    <input type="text" matInput placeholder="Edite aqui" #editName />
+    ><div *ngIf="!isVisible(todo)">{{ todo.name }}</div> <span class="example-spacer"></span>
+    <mat-form-field *ngIf="isVisible(todo)">
+      <input
+        type="text"
+        matInput
+        value="{{ todo.name }}"
+        placeholder="Edite aqui"
+        #editName
+      />
+    </mat-form-field>
     <button mat-icon-button>
-      <mat-icon class="example-icon" (click)="edit(todo,editName.value); editName.value = ''">edit</mat-icon>
+      <mat-icon
+        class="example-icon"
+        (click) ="onSelectTodo(todo)"
+        >edit</mat-icon
+      >
+    </button>
+    <button mat-icon-button>
+        <mat-icon
+          class="example-icon"
+          (click)="edit(todo, editName.value); editName.value = ''"
+          >cancel</mat-icon
+        >
+    </button>
+    <button mat-icon-button>
+        <mat-icon
+          class="example-icon"
+          (click)="edit(todo, editName.value); editName.value = ''"
+          >check_circle</mat-icon
+        >
     </button>
     <button mat-icon-button>
       <mat-icon class="example-icon" (click)="delete(todo)">delete</mat-icon>

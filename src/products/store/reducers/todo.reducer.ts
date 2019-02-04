@@ -1,17 +1,18 @@
 import * as fromActions from "../actions/todo.action";
 import { Todo } from "../../models/todo.model";
+import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-export interface TodoState {
-  entities: { [id: number]: Todo };
+export interface TodoState extends EntityState<Todo> {
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: TodoState = {
-  entities: {},
+export const adapter: EntityAdapter<Todo> = createEntityAdapter<Todo>();
+
+export const initialState: TodoState = adapter.getInitialState({
   loaded: false,
   loading: false
-};
+});
 
 export function reducer(
   state = initialState,
@@ -21,29 +22,13 @@ export function reducer(
     case fromActions.GET_TODOS: {
       return {
         ...state,
-        loading: true
+        loading: false,
+        loaded: true
       };
     }
 
     case fromActions.GET_TODOS_SUCCESS: {
-      const todos = action.payload;
-      const entities = todos.reduce(
-        (entities: { [id: number]: Todo }, todo: Todo) => {
-          return {
-            ...entities,
-            [todo.id]: todo
-          };
-        },
-        {
-          ...state.entities
-        }
-      );
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      return adapter.addAll(action.payload, state);
     }
 
     case fromActions.GET_TODOS_FAIL: {
@@ -55,23 +40,10 @@ export function reducer(
     }
     case fromActions.UPDATE_TODO_SUCCESS:
     case fromActions.CREATE_TODO_SUCCESS: {
-      const todo = action.payload;
-      const entities = {
-        ...state.entities,
-        [todo.id]: todo
-      };
-      return {
-        ...state,
-        entities
-      };
+      return adapter.upsertOne(action.payload, state);
     }
     case fromActions.REMOVE_TODO_SUCCESS: {
-      const todo = action.payload;
-      const { [todo.id]: removed, ...entities } = state.entities;
-      return {
-        ...state,
-        entities
-      };
+      return adapter.removeOne(action.payload.id, state);
     }
   }
 

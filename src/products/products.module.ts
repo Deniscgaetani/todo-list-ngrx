@@ -31,5 +31,6 @@ export const ROUTES: Routes = [
     providers: [...fromServices.services],
     declarations: [...fromComponents.components],
     exports: [...fromComponents.components],
+    entryComponents: [...fromComponents.components],
   })
 export class ProductsModule {}
