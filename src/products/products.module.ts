@@ -12,12 +12,13 @@ import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import * as fromComponents from './components';
 // services
 import * as fromServices from './shared/services';
-
+// containers
+import * as fromContainers from './containers';
 // routes
 export const ROUTES: Routes = [
   {
     path: '',
-    component: fromComponents.TodoComponent,
+    component: fromContainers.TodoComponent,
   }
 ];
 @NgModule({
@@ -32,8 +33,8 @@ export const ROUTES: Routes = [
       EffectsModule.forFeature(effects),
     ],
     providers: [...fromServices.services],
-    declarations: [...fromComponents.components],
-    exports: [...fromComponents.components],
-    entryComponents: [...fromComponents.components],
+    declarations: [...fromComponents.components, fromContainers.containers],
+    exports: [...fromComponents.components, fromContainers.containers],
+    entryComponents: [...fromComponents.components, fromContainers.containers],
   })
 export class ProductsModule {}

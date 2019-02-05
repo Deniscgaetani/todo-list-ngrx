@@ -1,0 +1,31 @@
+<mat-toolbar color="warn"
+  >Todo List <span class="example-spacer"></span>
+  <button mat-icon-button>
+    <mat-icon class="example-icon" (click)="openDialog()">add_circle</mat-icon>
+  </button>
+</mat-toolbar>
+<app-todo-list-filter [todo] = "todos$"></app-todo-list-filter>
+<mat-list role="list">
+  <mat-card *ngIf="!(todos$ | async)?.length">
+    Sem Todos, adicione um.
+  </mat-card>
+  <mat-list-item role="listitem" *ngFor="let todo of (todos$ | async)"
+    ><div *ngIf="!isVisible(todo)">{{ todo.name }}</div>
+    <div *ngIf="isVisible(todo)">
+      <app-todo-item-edit
+        [todo]="todo"
+        (update)="edit($event)"
+      ></app-todo-item-edit>
+    </div>
+    <span class="example-spacer"></span>
+    <button mat-icon-button>
+      <mat-icon class="example-icon" (click)="onSelectTodo(todo)"
+        >edit</mat-icon
+      >
+    </button>
+    <app-todo-item-delete
+      [todo]="todo"
+      (remove)="delete($event)"
+    ></app-todo-item-delete>
+  </mat-list-item>
+</mat-list>

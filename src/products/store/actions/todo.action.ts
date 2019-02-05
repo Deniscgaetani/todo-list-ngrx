@@ -22,7 +22,6 @@ export class GetTodosFail implements Action {
 export const CREATE_TODO = "[Products] Create Todo";
 export const CREATE_TODO_FAIL = "[Products] Create Todo Fail";
 export const CREATE_TODO_SUCCESS = "[Products] Create Todo Success";
-export const CREATE_TODO_DIALOG_CLOSE = "[Products] Close create Todo dialog";
 export const CREATE_TODO_DIALOG_OPEN = "[Products] Open create Todo dialog";
 export class CreateTodo implements Action {
   readonly type = CREATE_TODO;
@@ -38,9 +37,7 @@ export class CreateTodoSuccess implements Action {
   readonly type = CREATE_TODO_SUCCESS;
   constructor(public payload: Todo) {}
 }
-export class CreateTodoDialogCloseAction implements Action {
-  readonly type = CREATE_TODO_DIALOG_CLOSE;
-}
+
 
 export class CreateTodoDialogOpenAction implements Action {
   readonly type = CREATE_TODO_DIALOG_OPEN;
@@ -104,7 +101,6 @@ export type todosAction =
   | CreateTodoFail
   | CreateTodoSuccess
   | CreateTodoDialogOpenAction
-  | CreateTodoDialogCloseAction
   | UpdateTodo
   | UpdateTodoFail
   | UpdateTodoSuccess
