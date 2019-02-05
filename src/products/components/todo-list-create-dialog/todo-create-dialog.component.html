@@ -1,12 +1,19 @@
 <h2 mat-dialog-title>Adicione um Item a Lista de Todos</h2>
 <mat-dialog-content class="mat-typography">
   <mat-form-field>
-    <input type="text" matInput placeholder="Adicione Aqui" #name />
+    <form [formGroup]="form">
+      <input type="text" matInput placeholder="Adicione Aqui" formControlName="name" />
+    </form>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button [mat-dialog-close]="true" (click)="add(name.value); name.value = ''" cdkFocusInitial>
+  <button
+    mat-button
+    [mat-dialog-close]="true"
+    (click)="submit()"
+    cdkFocusInitial
+  >
     Adicionar
   </button>
 </mat-dialog-actions>

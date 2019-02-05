@@ -4,7 +4,14 @@ import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
 import { Observable } from "rxjs";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { TodoDialogComponent } from "../todo-list-dialog/todo-dialog.component";
+import { TodoCreateDialogComponent } from "../todo-list-create-dialog/todo-create-dialog.component";
+import {
+  FormControl,
+  FormGroup,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: "app-todo",
@@ -14,9 +21,13 @@ import { TodoDialogComponent } from "../todo-list-dialog/todo-dialog.component";
 export class TodoComponent implements OnInit {
   todos: Todo[];
   selectedTodo: Todo;
+  form = this.fb.group({
+    name: ['', Validators.required],
+  });
   constructor(
     private store: Store<fromStore.ProductsState>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fb: FormBuilder
   ) {}
   todos$: Observable<Todo[]>;
 
@@ -25,6 +36,8 @@ export class TodoComponent implements OnInit {
     this.store.dispatch(new fromStore.GetTodos());
   }
 
+
+
   add(name: string): void {
     name = name.trim();
     if (!name) {
@@ -32,21 +45,16 @@ export class TodoComponent implements OnInit {
     }
     this.store.dispatch(new fromStore.CreateTodo({ name } as Todo));
   }
-  edit(todo: Todo, name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
-    }
-    console.log("todo:::", todo);
-    const editTodo = { name: name, id: todo.id };
-    this.store.dispatch(new fromStore.UpdateTodo(editTodo));
+  edit(todo: Todo, name: FormGroup): void {
+
+    const editTodo = { name: name.value.name, id: todo.id };
+    this.store.dispatch(new fromStore.UpdateTodo(editTodo)); 
   }
   delete(todo: Todo): void {
     this.store.dispatch(new fromStore.RemoveTodo(todo));
   }
   onSelectTodo(todo: Todo): void {
     this.selectedTodo = todo;
-    console.log("selected Todo:::", this.selectedTodo);
   }
   isVisible (todo: Todo) {
     if (todo == this.selectedTodo) {
@@ -56,10 +64,6 @@ export class TodoComponent implements OnInit {
     }
   }
   openDialog(): void {
-    const dialogRef = this.dialog.open(TodoDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-    });
+    this.store.dispatch(new fromStore.CreateTodoDialogOpenAction());
   }
 }

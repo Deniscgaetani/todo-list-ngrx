@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers, effects } from './store';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../products/shared/material-module';
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 // components
 import * as fromComponents from './components';
@@ -24,6 +25,8 @@ export const ROUTES: Routes = [
       CommonModule,
       HttpClientModule,
       MaterialModule,
+      FormsModule,
+      ReactiveFormsModule,
       RouterModule.forChild(ROUTES),
       StoreModule.forFeature('products', reducers),
       EffectsModule.forFeature(effects),

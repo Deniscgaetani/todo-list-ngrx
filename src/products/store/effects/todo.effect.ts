@@ -1,29 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, toPayload } from "@ngrx/effects";
 
-import * as todoActions from '../actions/todo.action';
-import * as fromServices from '../../shared/services';
+import * as todoActions from "../actions/todo.action";
+import * as fromServices from "../../shared/services";
 // rxjs imports
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { map, switchMap, catchError, exhaustMap } from "rxjs/operators";
+import { of } from "rxjs/observable/of";
+import { TodoCreateDialogComponent } from "src/products/components";
+import { empty } from "rxjs/observable/empty";
 
 @Injectable()
 export class TodosEffects {
   constructor(
     private actions$: Actions,
+    private matDialog: MatDialog,
     private todoService: fromServices.TodoService
   ) {}
 
   @Effect()
   loadTodos$ = this.actions$.ofType(todoActions.GET_TODOS).pipe(
     switchMap(() => {
-      return this.todoService
-        .getTodos()
-        .pipe(
-          map(todos => new todoActions.GetTodosSuccess(todos)),
-          catchError(error => of(new todoActions.GetTodosFail(error)))
-        );
+      return this.todoService.getTodos().pipe(
+        map(todos => new todoActions.GetTodosSuccess(todos)),
+        catchError(error => of(new todoActions.GetTodosFail(error)))
+      );
     })
   );
 
@@ -31,25 +33,28 @@ export class TodosEffects {
   createTodo$ = this.actions$.ofType(todoActions.CREATE_TODO).pipe(
     map((action: todoActions.CreateTodo) => action.payload),
     switchMap(todo => {
-      return this.todoService
-        .addTodo(todo)
-        .pipe(
-          map(todo => new todoActions.CreateTodoSuccess(todo)),
-          catchError(error => of(new todoActions.CreateTodoFail(error)))
-        );
+      return this.todoService.addTodo(todo).pipe(
+        map(todo => new todoActions.CreateTodoSuccess(todo)),
+        catchError(error => of(new todoActions.CreateTodoFail(error)))
+      );
     })
   );
+/*   @Effect()
+  createHeroDialogOpen$ = this.actions$
+    .ofType(todoActions.CREATE_TODO_DIALOG_OPEN)
+    .pipe(
+      switchMap(() => {
+      })
+    ); */
 
   @Effect()
   updateTodo$ = this.actions$.ofType(todoActions.UPDATE_TODO).pipe(
     map((action: todoActions.UpdateTodo) => action.payload),
     switchMap(todo => {
-      return this.todoService
-        .updateTodo(todo)
-        .pipe(
-          map(todo => new todoActions.UpdateTodoSuccess(todo)),
-          catchError(error => of(new todoActions.UpdateTodoFail(error)))
-        );
+      return this.todoService.updateTodo(todo).pipe(
+        map(todo => new todoActions.UpdateTodoSuccess(todo)),
+        catchError(error => of(new todoActions.UpdateTodoFail(error)))
+      );
     })
   );
 
@@ -57,12 +62,10 @@ export class TodosEffects {
   removeTodo$ = this.actions$.ofType(todoActions.REMOVE_TODO).pipe(
     map((action: todoActions.RemoveTodo) => action.payload),
     switchMap(todo => {
-      return this.todoService
-        .deleteTodo(todo)
-        .pipe(
-          map(() => new todoActions.RemoveTodoSuccess(todo)),
-          catchError(error => of(new todoActions.RemoveTodoFail(error)))
-        );
+      return this.todoService.deleteTodo(todo).pipe(
+        map(() => new todoActions.RemoveTodoSuccess(todo)),
+        catchError(error => of(new todoActions.RemoveTodoFail(error)))
+      );
     })
   );
 }
