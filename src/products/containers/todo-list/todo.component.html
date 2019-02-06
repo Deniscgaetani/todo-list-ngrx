@@ -4,28 +4,49 @@
     <mat-icon class="example-icon" (click)="openDialog()">add_circle</mat-icon>
   </button>
 </mat-toolbar>
-<app-todo-list-filter [todo] = "todos$"></app-todo-list-filter>
-<mat-list role="list">
-  <mat-card *ngIf="!(todos$ | async)?.length">
-    Sem Todos, adicione um.
-  </mat-card>
-  <mat-list-item role="listitem" *ngFor="let todo of (todos$ | async)"
-    ><div *ngIf="!isVisible(todo)">{{ todo.name }}</div>
-    <div *ngIf="isVisible(todo)">
-      <app-todo-item-edit
+<div class="example-header">
+  <mat-form-field>
+    <input
+      matInput
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Digite o Todo"
+    />
+  </mat-form-field>
+</div>
+<mat-table #table [dataSource]="dataSource" *ngIf="loaded$; else spinner">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
+    <mat-cell *matCellDef="let todo">
+      <div *ngIf="!isVisible(todo)">{{ todo.name }}</div>
+      <span class="example-spacer"></span>
+      <div>
+      <app-todo-item-delete
         [todo]="todo"
-        (update)="edit($event)"
-      ></app-todo-item-edit>
+        (remove)="delete($event)"
+      ></app-todo-item-delete>
+      <button mat-icon-button>
+        <mat-icon class="example-icon" (click)="onSelectTodo(todo, $event)"
+          >edit</mat-icon
+        >
+      </button>
+      <div *ngIf="isVisible(todo)">
+        <app-todo-item-edit
+          [todo]="todo"
+          (update)="edit($event)"
+        ></app-todo-item-edit>
+      </div>
     </div>
-    <span class="example-spacer"></span>
-    <button mat-icon-button>
-      <mat-icon class="example-icon" (click)="onSelectTodo(todo)"
-        >edit</mat-icon
-      >
-    </button>
-    <app-todo-item-delete
-      [todo]="todo"
-      (remove)="delete($event)"
-    ></app-todo-item-delete>
-  </mat-list-item>
-</mat-list>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<mat-card *ngIf="!(todos$ | async)?.length">
+  Sem Todos, adicione um.
+</mat-card>
+<ng-template #spinner>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

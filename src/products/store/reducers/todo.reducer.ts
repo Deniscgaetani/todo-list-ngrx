@@ -22,12 +22,13 @@ export function reducer(
     case fromActions.GET_TODOS: {
       return {
         ...state,
-        loading: false,
-        loaded: true
+        loading: true,
+        loaded: false
       };
     }
 
     case fromActions.GET_TODOS_SUCCESS: {
+      state = {...state, loading: false, loaded: true};
       return adapter.addAll(action.payload, state);
     }
 
