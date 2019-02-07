@@ -17,11 +17,11 @@ import {
 import { Todo } from "../../models/todo.model";
 
 @Component({
-  selector: "app-todo-item-edit",
-  templateUrl: "./todo-item-edit.component.html",
-  styleUrls: ["./todo-item-edit.component.scss"]
+  selector: "app-todo-form",
+  templateUrl: "./todo-form.component.html",
+  styleUrls: ["./todo-form.component.scss"]
 })
-export class TodoItemEditComponent implements OnChanges {
+export class TodoFormComponent implements OnChanges {
   form = this.fb.group({
     name: ["", Validators.required]
   });
@@ -29,6 +29,9 @@ export class TodoItemEditComponent implements OnChanges {
   @Input() todo: Todo;
   // Outputs
   @Output() update = new EventEmitter<Todo>();
+  @Output() remove = new EventEmitter<Todo>();
+
+  selectedTodo: Todo;
 
   constructor(private fb: FormBuilder) {}
   ngOnChanges(changes: SimpleChanges) {
@@ -41,7 +44,20 @@ export class TodoItemEditComponent implements OnChanges {
     const editTodo = { name: form.value.name, id: todo.id };
     this.update.emit(editTodo);
   }
+  removeTodo(todo: Todo) {
+    this.remove.emit(todo);
+  }
   cancelTodo(todo: Todo, form: FormGroup) {
     this.update.emit(todo);
+  }
+  onSelectTodo(todo: Todo, event: any): void {
+    this.selectedTodo = todo;
+  }
+  isVisible(todo: Todo) {
+    if (todo == this.selectedTodo) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

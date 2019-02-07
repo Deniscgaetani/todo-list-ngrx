@@ -1,20 +1,19 @@
 .example-icon {
   padding: 0 14px;
 }
-
 .example-spacer {
   flex: 1 1 auto;
-}
-.example-header {
-  min-height: 64px;
-  padding: 8px 24px 0;
-}
-
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
 }
 .container {
   min-height: 100%;
   width: 100%;
+}
+.start{
+align-items: start;
+max-height: 50%;
+max-width: 50%;
+}
+.end{
+align-items: end;
+
 }

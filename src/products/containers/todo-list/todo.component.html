@@ -15,28 +15,18 @@
 </div>
 <mat-table #table [dataSource]="dataSource" *ngIf="loaded$; else spinner">
   <!-- Name Column -->
-  <ng-container matColumnDef="name">
+  <ng-container matColumnDef="name" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
-    <mat-cell *matCellDef="let todo">
-      <div *ngIf="!isVisible(todo)">{{ todo.name }}</div>
-      <span class="example-spacer"></span>
-      <div>
-      <app-todo-item-delete
-        [todo]="todo"
-        (remove)="delete($event)"
-      ></app-todo-item-delete>
-      <button mat-icon-button>
-        <mat-icon class="example-icon" (click)="onSelectTodo(todo, $event)"
-          >edit</mat-icon
-        >
-      </button>
-      <div *ngIf="isVisible(todo)">
-        <app-todo-item-edit
-          [todo]="todo"
-          (update)="edit($event)"
-        ></app-todo-item-edit>
-      </div>
-    </div>
+    <mat-cell
+      *matCellDef="let todo"
+      fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center"
+    >
+            <app-todo-form
+              [todo]="todo"
+              (update)="edit($event)"
+              (remove)="delete($event)"
+              fxLayout.gt-xs="row" fxLayout.xs="column"
+            ></app-todo-form>
     </mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

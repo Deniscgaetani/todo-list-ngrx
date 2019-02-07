@@ -1,13 +1,10 @@
 import { TodoCreateDialogComponent } from "./todo-list-create-dialog/todo-create-dialog.component";
-import { TodoItemDeleteComponent } from "./todo-item-delete/todo-item-delete.component";
-import { TodoItemEditComponent } from "./todo-item-edit/todo-item-edit.component";
+import { TodoFormComponent } from "./todo-form/todo-form.component";
 
 export const components: any[] = [
-  TodoItemDeleteComponent,
   TodoCreateDialogComponent,
-  TodoItemEditComponent
+  TodoFormComponent
 ];
 
-export * from "./todo-item-delete/todo-item-delete.component";
-export * from "./todo-item-edit/todo-item-edit.component";
+export * from "./todo-form/todo-form.component";
 export * from "./todo-list-create-dialog/todo-create-dialog.component";

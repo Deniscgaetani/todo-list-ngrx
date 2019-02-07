@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../products/shared/material-module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { StoreModule, MetaReducer } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
@@ -38,6 +39,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FlexLayoutModule,
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([]),
