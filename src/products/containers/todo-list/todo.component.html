@@ -1,6 +1,6 @@
 <mat-toolbar color="warn"
   >Todo List <span class="example-spacer"></span>
-  <button mat-icon-button>
+  <button mat-icon-button matTooltip="Crie um Todo aqui">
     <mat-icon class="example-icon" (click)="openDialog()">add_circle</mat-icon>
   </button>
 </mat-toolbar>
@@ -17,7 +17,7 @@
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
-    <mat-cell *matCellDef="let todo">
+    <mat-cell *matCellDef="let todo" [@fadeInOut]>
       <app-todo-form
         [todo]="todo"
         (update)="edit($event)"

@@ -2,18 +2,22 @@
   <div class="box">
     <div>{{ todo.name }}</div>
     <div>
-      <button mat-icon-button>
-        <mat-icon class="example-icon" (click)="onSelectTodo(todo, $event)"
-          >edit</mat-icon
-        >
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon class="example-icon">more_vert</mat-icon>
       </button>
-      <button mat-icon-button>
-        <mat-icon
-          class="example-icon"
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onSelectTodo(todo, $event)">
+          <mat-icon class="example-icon">edit</mat-icon>
+          <span>Editar</span>
+        </button>
+        <button
+          mat-menu-item
           (click)="removeTodo(todo); $event.stopPropagation()"
-          >delete</mat-icon
         >
-      </button>
+          <mat-icon class="example-icon">delete</mat-icon>
+          <span>Deletar</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 </div>

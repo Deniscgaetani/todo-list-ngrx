@@ -15,7 +15,7 @@ import { empty } from "rxjs/observable/empty";
 export class TodosEffects {
   constructor(
     private actions$: Actions,
-    public  dialog: MatDialog,
+    public dialog: MatDialog,
     private todoService: fromServices.TodoService
   ) {}
 
@@ -40,14 +40,22 @@ export class TodosEffects {
     })
   );
   // @Effect()
-  // createHeroDialogOpen$ = this.actions$
+  // createTodoDialogOpen$ = this.actions$
   //   .ofType(todoActions.CREATE_TODO_DIALOG_OPEN)
   //   .pipe(
-      // switchMap(() => of(this.dialog.open(TodoCreateDialogComponent)))
-      // switchMap(todo => {
-      //   console.log(todo);
-      // })
-    // );
+  //     map((action: todoActions.CreateTodoDialogOpenAction) => action),
+  //     switchMap(() => of(this.dialog.open(TodoCreateDialogComponent)))
+  //   );
+
+  // @Effect()
+  // createTodoDialogOpen$ = this.actions$
+  //   .ofType(todoActions.CREATE_TODO_DIALOG_OPEN)
+  //   .pipe(
+  // switchMap(() => of(this.dialog.open(TodoCreateDialogComponent)))
+  // switchMap(todo => {
+  //   console.log(todo);
+  // })
+  // );
 
   @Effect()
   updateTodo$ = this.actions$.ofType(todoActions.UPDATE_TODO).pipe(
