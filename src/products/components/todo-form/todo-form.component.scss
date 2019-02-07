@@ -6,14 +6,21 @@
 }
 .container {
   min-height: 100%;
-  width: 100%;
+  min-width: 100%;
 }
-.start{
-align-items: start;
-max-height: 50%;
-max-width: 50%;
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
 }
-.end{
-align-items: end;
-
+.box>*:first-child {
+  align-content: start;
+  word-wrap: break-word;
+  padding-top: 2vh;
+  max-width: 25vh;
+  max-height: 4.9vh;
+  overflow: auto;
+}
+.box .chosen {
+  align-self: center;
 }

@@ -1,39 +1,47 @@
 <div *ngIf="!isVisible(todo)">
-  <mat-form-field [formGroup]="form">
-    <input type="text" matInput value="{{ todo.name }}" />
-  </mat-form-field>
-  <button mat-icon-button>
-    <mat-icon class="example-icon" (click)="onSelectTodo(todo, $event)"
-      >edit</mat-icon
-    >
-  </button>
-  <button mat-icon-button>
-    <mat-icon
-      class="example-icon"
-      (click)="removeTodo(todo); $event.stopPropagation()"
-      >delete</mat-icon
-    >
-  </button>
+  <div class="box">
+    <div>{{ todo.name }}</div>
+    <div>
+      <button mat-icon-button>
+        <mat-icon class="example-icon" (click)="onSelectTodo(todo, $event)"
+          >edit</mat-icon
+        >
+      </button>
+      <button mat-icon-button>
+        <mat-icon
+          class="example-icon"
+          (click)="removeTodo(todo); $event.stopPropagation()"
+          >delete</mat-icon
+        >
+      </button>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="isVisible(todo)">
-  <mat-form-field [formGroup]="form">
-    <input
-      type="text"
-      formControlName="name"
-      matInput
-      placeholder="Edite aqui"
-      value="{{ todo.name }}"
-    />
-  </mat-form-field>
-  <button mat-icon-button>
-    <mat-icon class="example-icon" (click)="updateTodo(todo, form)"
-      >check_circle
-    </mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon class="example-icon" (click)="cancelTodo(todo, form)"
-      >cancel</mat-icon
-    >
-  </button>
+  <div class="box">
+    <div>
+      <mat-form-field [formGroup]="form">
+        <input
+          type="text"
+          formControlName="name"
+          matInput
+          placeholder="Edite aqui"
+          value="{{ todo.name }}"
+        />
+      </mat-form-field>
+    </div>
+    <div class="chosen">
+      <button mat-icon-button>
+        <mat-icon class="example-icon" (click)="updateTodo(todo, form)"
+          >check_circle
+        </mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon class="example-icon" (click)="cancelTodo(todo, form)"
+          >cancel</mat-icon
+        >
+      </button>
+    </div>
+  </div>
 </div>
