@@ -23,7 +23,6 @@ export function reducer(
       return {
         ...state,
         loading: true,
-        loaded: false
       };
     }
 

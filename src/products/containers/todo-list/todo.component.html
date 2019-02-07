@@ -13,11 +13,11 @@
     />
   </mat-form-field>
 </div>
-<mat-table #table [dataSource]="dataSource" *ngIf="loaded$; else spinner">
+<mat-table #table [dataSource]="dataSource" *ngIf="(loaded$| async); else spinner">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
-    <mat-cell *matCellDef="let todo" [@fadeInOut]>
+    <mat-cell *matCellDef="let todo" [@rowsAnimation]>
       <app-todo-form
         [todo]="todo"
         (update)="edit($event)"
@@ -28,9 +28,9 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
-<mat-card *ngIf="!(todos$ | async)?.length">
-  Sem Todos, adicione um.
-</mat-card>
 <ng-template #spinner>
-  <mat-spinner></mat-spinner>
+    <mat-card style ="text-align: center">
+        Carregando, por favor aguarde.
+        <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+      </mat-card>
 </ng-template>

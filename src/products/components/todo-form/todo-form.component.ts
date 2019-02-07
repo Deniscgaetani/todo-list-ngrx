@@ -19,7 +19,8 @@ import { Todo } from "../../models/todo.model";
 @Component({
   selector: "app-todo-form",
   templateUrl: "./todo-form.component.html",
-  styleUrls: ["./todo-form.component.scss"]
+  styleUrls: ["./todo-form.component.scss"],
+  
 })
 export class TodoFormComponent implements OnChanges {
   form = this.fb.group({
