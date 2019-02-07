@@ -15,13 +15,9 @@
 </div>
 <mat-table #table [dataSource]="dataSource" *ngIf="loaded$; else spinner">
   <!-- Name Column -->
-  <ng-container
-    matColumnDef="name"
-  >
+  <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
-    <mat-cell
-      *matCellDef="let todo"
-    >
+    <mat-cell *matCellDef="let todo">
       <app-todo-form
         [todo]="todo"
         (update)="edit($event)"
@@ -36,5 +32,5 @@
   Sem Todos, adicione um.
 </mat-card>
 <ng-template #spinner>
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </ng-template>

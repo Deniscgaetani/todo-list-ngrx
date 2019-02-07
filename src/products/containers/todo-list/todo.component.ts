@@ -7,7 +7,6 @@ import { MatDialog } from "@angular/material";
 import { TodoCreateDialogComponent } from "../../components/todo-list-create-dialog/todo-create-dialog.component";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material";
-import {DataSource} from '@angular/cdk/collections';
 
 @Component({
   selector: "app-todo",
@@ -35,7 +34,6 @@ export class TodoComponent implements OnInit {
     this.todos$ = this.store.select(fromStore.getAllTodos);
     this.loading$ = this.store.select(fromStore.getTodosLoading);
     this.loaded$ = this.store.select(fromStore.getTodosLoaded);
-    console.log(this.loading$);
     this.store.dispatch(new fromStore.GetTodos());
     this.todos$.subscribe(data => (this.dataSource.data = data));
   }
@@ -56,7 +54,7 @@ export class TodoComponent implements OnInit {
       this.store.dispatch(new fromStore.RemoveTodo(todo));
     }
   }
-  onSelectTodo(todo: Todo, event: any): void {
+  onSelectTodo(todo: Todo): void {
     this.selectedTodo = todo;
   }
   isVisible(todo: Todo) {
