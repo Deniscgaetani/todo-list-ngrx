@@ -1,0 +1,22 @@
+<mat-card>
+  <div [@move]="state" (@move.done)="onEnd($event)">
+    Carregando, por favor aguarde...
+  </div>
+  <div class="Aligner">
+    <div [@move]="state" (@move.done)="onEnd($event)">
+      <div class="multi-spinner-container">
+        <div class="multi-spinner">
+          <div class="multi-spinner">
+            <div class="multi-spinner">
+              <div class="multi-spinner">
+                <div class="multi-spinner">
+                  <div class="multi-spinner"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

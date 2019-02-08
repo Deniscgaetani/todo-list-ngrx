@@ -7,45 +7,13 @@ import { MatDialog } from "@angular/material";
 import { TodoCreateDialogComponent } from "../../components/todo-list-create-dialog/todo-create-dialog.component";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  sequence
-} from "@angular/animations";
+import { todoAnimations } from "./todo.animations";
+
 @Component({
   selector: "app-todo",
   templateUrl: "./todo.component.html",
   styleUrls: ["./todo.component.scss"],
-  animations: [
-    trigger("rowsAnimation", [
-      transition("void => *", [
-        style({
-          height: "*",
-          opacity: "0",
-          transform: "translateX(-550px)",
-          "box-shadow": "none"
-        }),
-        sequence([
-          animate(
-            ".35s ease",
-            style({
-              height: "*",
-              opacity: ".2",
-              transform: "translateX(0)",
-              "box-shadow": "none"
-            })
-          ),
-          animate(
-            ".35s ease",
-            style({ height: "*", opacity: 1, transform: "translateX(0)" })
-          )
-        ])
-      ])
-    ])
-  ]
+  animations: [todoAnimations.rowsAnimation]
 })
 export class TodoComponent implements OnInit {
   displayedColumns = ["name"];

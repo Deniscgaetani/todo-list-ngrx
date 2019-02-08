@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class= "toolbarTop">
+    <div [@fadeInOut]>Todo List</div>
+    <span class="example-spacer"></span>
+    <button mat-icon-button matTooltip="Crie um Todo aqui">
+      <mat-icon class="example-icon" (click)="openDialog()" [@fadeInOut]
+        >add_circle</mat-icon
+      >
+    </button>
+    <button mat-icon-button>
+      <mat-icon class="example-icon">more_vert</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="box">
+    <button mat-button>Click me1!</button>
+    <button mat-button>Click me2!</button>
+    <button mat-button>Click me3!</button>
+  </mat-toolbar-row>
+</mat-toolbar>

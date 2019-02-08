@@ -1,10 +1,8 @@
-<mat-toolbar color="warn"
-  >Todo List <span class="example-spacer"></span>
-  <button mat-icon-button matTooltip="Crie um Todo aqui">
-    <mat-icon class="example-icon" (click)="openDialog()">add_circle</mat-icon>
-  </button>
-</mat-toolbar>
-<div class="example-header">
+<!-- Toolbar -->
+<app-todo-toolbar></app-todo-toolbar>
+
+<!-- Filter and Table -->
+<div class="example-header" *ngIf="(loaded$ | async)">
   <mat-form-field>
     <input
       matInput
@@ -13,7 +11,11 @@
     />
   </mat-form-field>
 </div>
-<mat-table #table [dataSource]="dataSource" *ngIf="(loaded$| async); else spinner">
+<mat-table
+  #table
+  [dataSource]="dataSource"
+  *ngIf="(loaded$ | async); else spinner"
+>
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Lista de Todos </mat-header-cell>
@@ -28,9 +30,7 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
+
 <ng-template #spinner>
-    <mat-card style ="text-align: center">
-        Carregando, por favor aguarde.
-        <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-      </mat-card>
+  <app-todo-spinner></app-todo-spinner>
 </ng-template>
